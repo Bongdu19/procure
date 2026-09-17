@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>공공조달관리사 필기시험 400제 모의고사 | Procure</title>
   <meta name="description" content="공공조달관리사 필기시험 400제 및 1~3권 랜덤 10제 스마트 모의시험 시스템" />
-  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <!-- Fast Inline Favicon to prevent tab loading spin -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📋</text></svg>">
   <style>
     :root {
       --bg-main: #f8fafc;
@@ -49,8 +50,9 @@
       --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.04);
       --shadow-lg: 0 12px 24px -4px rgb(0 0 0 / 0.08);
 
-      --font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      /* High-performance Zero-latency native system font stack */
+      --font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", "Segoe UI", Roboto, sans-serif;
+      --transition: all 0.15s ease-out;
     }
 
     [data-theme='dark'] {
@@ -110,7 +112,6 @@
       z-index: 30;
       background: var(--bg-card);
       border-bottom: 1px solid var(--border-subtle);
-      backdrop-filter: blur(10px);
       padding: 0.85rem 1.5rem;
     }
     .header-inner {
@@ -175,7 +176,7 @@
     /* Main Container */
     .study-container {
       max-width: 980px;
-      margin: 1.75rem auto 3rem auto;
+      margin: 1.5rem auto 3rem auto;
       padding: 0 1.25rem;
       display: flex;
       flex-direction: column;
@@ -231,7 +232,7 @@
       border: 1px solid var(--accent-border);
       border-radius: var(--radius-md);
       color: var(--text-main);
-      animation: fadeIn 0.25s ease-out;
+      animation: fadeIn 0.2s ease-out;
     }
     .random-banner-title {
       font-size: 0.925rem;
@@ -329,11 +330,11 @@
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
-      padding: 2.25rem;
+      padding: 2rem;
       box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
-      gap: 1.75rem;
+      gap: 1.5rem;
       transition: var(--transition);
     }
     .card-top {
@@ -380,7 +381,7 @@
 
     /* Question Title */
     .question-text {
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 700;
       line-height: 1.6;
       color: var(--text-main);
@@ -397,7 +398,7 @@
       display: flex;
       align-items: flex-start;
       gap: 1rem;
-      padding: 1.1rem 1.35rem;
+      padding: 1rem 1.25rem;
       border-radius: var(--radius-md);
       border: 1.5px solid var(--border-subtle);
       background: var(--bg-card);
@@ -472,7 +473,7 @@
       border-left: 4px solid var(--primary);
       border-radius: var(--radius-md);
       padding: 1.25rem 1.5rem;
-      animation: fadeIn 0.25s ease-out;
+      animation: fadeIn 0.2s ease-out;
     }
     .solution-title {
       display: flex;
@@ -534,7 +535,6 @@
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(6px);
       z-index: 50;
       display: flex;
       align-items: center;
@@ -674,11 +674,11 @@
 
     // State
     let examData = defaultExamData;
-    let viewMode = 'quiz'; // 'quiz' | 'study'
-    let selectedCategoryId = 0; // 0=all, 1~4, 'random10'=1~3권 랜덤 10제
+    let viewMode = 'quiz';
+    let selectedCategoryId = 0;
     let isRandom10Mode = false;
     let random10Questions = [];
-    let filterType = 'all'; // 'all' | 'wrong' | 'bookmarked'
+    let filterType = 'all';
     let currentIndex = 0;
     let selectedAnswers = {};
     let bookmarkedIds = [];
@@ -733,11 +733,8 @@
 
     // 1~3권 랜덤 10제 시험 모드 시작
     function startRandom10Exam() {
-      // Filter questions from categories 1, 2, 3
       const pool = examData.questions.filter(q => [1, 2, 3].includes(q.category_id));
-      // Shuffle
       const shuffled = [...pool].sort(() => 0.5 - Math.random());
-      // Pick 10
       random10Questions = shuffled.slice(0, 10);
       isRandom10Mode = true;
       selectedCategoryId = 'random10';
@@ -838,7 +835,6 @@
         html += `<button class="cat-btn ${selectedCategoryId === cat.id ? 'active' : ''}" onclick="setCategory(${cat.id})">${cat.name} (${count})</button>`;
       });
 
-      // Special Random 10 Button
       html += `<button class="cat-btn random-mode ${isRandom10Mode ? 'active' : ''}" onclick="startRandom10Exam()">🎲 1~3권 랜덤 10제 시험</button>`;
 
       container.innerHTML = html;
@@ -849,7 +845,6 @@
       if (currentIndex >= list.length) currentIndex = 0;
       const currentQ = list[currentIndex];
 
-      // Update question selector
       const select = document.getElementById('question-select');
       select.innerHTML = list.map((q, idx) => `
         <option value="${idx}" ${idx === currentIndex ? 'selected' : ''}>
@@ -921,7 +916,6 @@
         resetBtnHtml = `<button class="btn-star" onclick="resetCurrentQuestion()" title="이 문제 다시 풀기">↺ 다시 풀기</button>`;
       }
 
-      // Random 10 Summary info if finished
       let randomSummaryHtml = '';
       if (isRandom10Mode) {
         const answeredCount = random10Questions.filter(q => selectedAnswers[q.id] !== undefined).length;
@@ -1041,7 +1035,7 @@
       }
     }
 
-    // Initialize
+    // Fast initial render
     render();
   </script>
 </body>
