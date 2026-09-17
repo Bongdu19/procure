@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>공공조달관리사 필기시험 150제 모의고사 | Procure</title>
+  <meta name="description" content="공공조달관리사 필기시험 150제 스마트 문제 풀이 및 정답·해설 학습 시스템" />
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <style>
+    :root {
+      --bg-main: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --border-subtle: #e2e8f0;
+      --border-focus: #3b82f6;
+
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-subtle: #eff6ff;
+      --primary-border: #bfdbfe;
+
+      --success: #10b981;
+      --success-bg: #ecfdf5;
+      --success-border: #a7f3d0;
+      --success-text: #065f46;
+
+      --danger: #ef4444;
+      --danger-bg: #fef2f2;
+      --danger-border: #fecaca;
+      --danger-text: #991b1b;
+
+      --star: #f59e0b;
+      --star-bg: #fffbeb;
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+
+      --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.06);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.04);
+      --shadow-lg: 0 12px 24px -4px rgb(0 0 0 / 0.08);
+
+      --font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme='dark'] {
+      --bg-main: #0b0f19;
+      --bg-card: #131b2e;
+      --bg-subtle: #1c263c;
+      --border-subtle: #23304a;
+      --border-focus: #60a5fa;
+
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-light: #64748b;
+
+      --primary: #3b82f6;
+      --primary-hover: #60a5fa;
+      --primary-subtle: #1e293b;
+      --primary-border: #2563eb;
+
+      --success: #34d399;
+      --success-bg: rgba(16, 185, 129, 0.15);
+      --success-border: rgba(16, 185, 129, 0.35);
+      --success-text: #6ee7b7;
+
+      --danger: #f87171;
+      --danger-bg: rgba(239, 68, 68, 0.15);
+      --danger-border: rgba(239, 68, 68, 0.35);
+      --danger-text: #fca5a5;
+
+      --star: #fbbf24;
+      --star-bg: rgba(245, 158, 11, 0.15);
+
+      --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.4);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+      --shadow-lg: 0 12px 24px -4px rgb(0 0 0 / 0.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      font-family: var(--font-family);
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, select, textarea { font-family: inherit; }
+    button { cursor: pointer; border: none; background: none; }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-subtle);
+      backdrop-filter: blur(10px);
+      padding: 0.85rem 1.5rem;
+    }
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand { display: flex; align-items: center; gap: 0.75rem; }
+    .brand-badge {
+      background: linear-gradient(135deg, #2563eb, #4f46e5);
+      color: #fff;
+      font-size: 0.725rem;
+      font-weight: 800;
+      padding: 0.25rem 0.55rem;
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.05em;
+    }
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+    .header-actions { display: flex; align-items: center; gap: 0.6rem; }
+    .view-mode-pill {
+      display: flex;
+      background: var(--bg-subtle);
+      padding: 0.2rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-subtle);
+    }
+    .pill-btn {
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+    .pill-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+    .icon-btn:hover { background: var(--bg-subtle); color: var(--text-main); }
+
+    /* Main Container */
+    .study-container {
+      max-width: 960px;
+      margin: 1.75rem auto 3rem auto;
+      padding: 0 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    /* Category Bar */
+    .category-bar {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .cat-btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+    .cat-btn:hover { border-color: var(--border-focus); color: var(--text-main); }
+    .cat-btn.active {
+      background: var(--primary-subtle);
+      color: var(--primary);
+      border-color: var(--primary-border);
+    }
+
+    /* Status Bar */
+    .status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      padding: 0.75rem 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+    }
+    .progress-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 600;
+    }
+    .question-select {
+      padding: 0.35rem 0.65rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      font-size: 0.85rem;
+      font-weight: 600;
+      outline: none;
+    }
+    .filter-buttons { display: flex; align-items: center; gap: 0.5rem; }
+    .chip-btn {
+      padding: 0.3rem 0.7rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+    .chip-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .chip-btn.active-wrong {
+      background: var(--danger-bg);
+      color: var(--danger-text);
+      border-color: var(--danger-border);
+    }
+    .chip-btn.active-star {
+      background: var(--star-bg);
+      color: var(--star);
+      border-color: var(--star);
+    }
+
+    /* Study Card */
+    .study-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+      transition: var(--transition);
+    }
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .q-badge { display: flex; align-items: center; gap: 0.5rem; }
+    .badge-num {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--primary);
+      background: var(--primary-subtle);
+      padding: 0.3rem 0.7rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--primary-border);
+    }
+    .badge-cat {
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--bg-subtle);
+      padding: 0.3rem 0.65rem;
+      border-radius: var(--radius-sm);
+    }
+    .btn-star {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.825rem;
+      font-weight: 600;
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+    .btn-star.starred {
+      background: var(--star-bg);
+      color: var(--star);
+      border-color: var(--star);
+    }
+
+    /* Question Title */
+    .question-text {
+      font-size: 1.3rem;
+      font-weight: 700;
+      line-height: 1.6;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
+    }
+
+    /* Choices */
+    .choices-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .choice-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.1rem 1.35rem;
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-size: 1rem;
+      font-weight: 500;
+      text-align: left;
+      line-height: 1.5;
+      transition: var(--transition);
+      width: 100%;
+    }
+    .choice-btn:hover {
+      border-color: var(--border-focus);
+      background: var(--bg-subtle);
+      transform: translateY(-1px);
+    }
+    .choice-btn.selected {
+      border-color: var(--primary);
+      background: var(--primary-subtle);
+    }
+    .choice-btn.is-correct {
+      border-color: var(--success);
+      background: var(--success-bg);
+      color: var(--success-text);
+      font-weight: 600;
+    }
+    .choice-btn.is-wrong {
+      border-color: var(--danger);
+      background: var(--danger-bg);
+      color: var(--danger-text);
+    }
+    .choice-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.825rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .choice-btn.selected .choice-num {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .choice-btn.is-correct .choice-num {
+      background: var(--success);
+      color: #fff;
+      border-color: var(--success);
+    }
+    .choice-btn.is-wrong .choice-num {
+      background: var(--danger);
+      color: #fff;
+      border-color: var(--danger);
+    }
+    .choice-label { flex: 1; }
+    .choice-status-tag {
+      font-size: 0.85rem;
+      font-weight: 800;
+      margin-left: auto;
+    }
+
+    /* Solution Box */
+    .solution-box {
+      background: var(--bg-subtle);
+      border-left: 4px solid var(--primary);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      animation: fadeIn 0.25s ease-out;
+    }
+    .solution-title {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    .solution-body {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      line-height: 1.65;
+    }
+
+    /* Card Footer */
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .nav-action-btn {
+      padding: 0.7rem 1.35rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text-main);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .nav-action-btn:hover:not(:disabled) {
+      background: var(--bg-subtle);
+      border-color: var(--border-focus);
+    }
+    .nav-action-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .nav-action-btn.primary {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .nav-action-btn.primary:hover:not(:disabled) {
+      background: var(--primary-hover);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      max-width: 650px;
+      width: 100%;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      padding: 1.75rem;
+      gap: 1.25rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-badge">PROCURE</span>
+        <h1 class="brand-title" id="page-title">공공조달관리사 필기시험 150제 모의고사</h1>
+      </div>
+
+      <div class="header-actions">
+        <!-- View Mode -->
+        <div class="view-mode-pill">
+          <button id="btn-mode-quiz" class="pill-btn active" onclick="setViewMode('quiz')">✏️ 문제 풀기</button>
+          <button id="btn-mode-study" class="pill-btn" onclick="setViewMode('study')">📖 정답·해설 보기</button>
+        </div>
+
+        <!-- JSON Modal Button -->
+        <button class="icon-btn" onclick="openJsonModal()" title="150제 문제 데이터(JSON) 관리 / 추가">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="12" y1="18" x2="12" y2="12" />
+            <line x1="9" y1="15" x2="15" y2="15" />
+          </svg>
+        </button>
+
+        <!-- Dark/Light Theme -->
+        <button class="icon-btn" onclick="toggleTheme()" id="theme-btn" title="다크/라이트 모드 전환">
+          🌙
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="study-container">
+    <!-- Category Filter Bar -->
+    <div class="category-bar" id="category-bar"></div>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div class="progress-info">
+        <span>문항 이동:</span>
+        <select id="question-select" class="question-select" onchange="jumpToQuestion(Number(this.value))"></select>
+        <span id="question-counter" style="color: var(--text-muted)"></span>
+      </div>
+
+      <div class="filter-buttons">
+        <button class="chip-btn active" id="filter-all" onclick="setFilter('all')">전체 보기</button>
+        <button class="chip-btn" id="filter-wrong" onclick="setFilter('wrong')">⚠️ 오답노트 (<span id="wrong-count">0</span>)</button>
+        <button class="chip-btn" id="filter-star" onclick="setFilter('bookmarked')">★ 북마크 (<span id="bookmark-count">0</span>)</button>
+      </div>
+    </div>
+
+    <!-- Question Study Card -->
+    <div id="card-container"></div>
+  </main>
+
+  <!-- JSON Modal -->
+  <div id="json-modal" class="modal-backdrop" style="display: none;" onclick="closeJsonModal()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <h2 style="font-size: 1.25rem; font-weight: 800;">문제 데이터 (JSON) 관리</h2>
+          <p style="font-size: 0.8rem; color: var(--text-muted);">전체 150문제 JSON을 붙여넣어 바로 업데이트할 수 있습니다.</p>
+        </div>
+        <button onclick="closeJsonModal()" style="font-size: 1.25rem; color: var(--text-muted);">✕</button>
+      </div>
+
+      <div id="json-error" style="display: none; padding: 0.65rem; background: var(--danger-bg); color: var(--danger-text); border-radius: var(--radius-sm); font-size: 0.85rem;"></div>
+
+      <textarea id="json-textarea" style="width: 100%; height: 320px; font-family: monospace; font-size: 0.825rem; padding: 0.85rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); background: var(--bg-subtle); color: var(--text-main); line-height: 1.4;"></textarea>
+
+      <div style="display: flex; justify-content: space-between; gap: 0.5rem;">
+        <button class="nav-action-btn" onclick="resetToDefaultJson()" style="color: var(--danger);">기본 데이터로 복원</button>
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="nav-action-btn" onclick="closeJsonModal()">닫기</button>
+          <button class="nav-action-btn primary" onclick="saveJsonData()">저장 및 적용</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initial 150-Question Data
+    const defaultExamData = {
+      "title": "공공조달관리사 필기시험 150제 모의고사",
+      "categories": [
+        { "id": 1, "name": "1권: 공공조달의 이해 (50문항)" },
+        { "id": 2, "name": "2권: 공공조달 계획분석 (50문항)" },
+        { "id": 3, "name": "3권: 공공계약관리 (50문항)" }
+      ],
+      "questions": [
+        {
+          "id": 101,
+          "category_id": 1,
+          "question": "공공조달의 5대 기본원칙에 해당하지 않는 것은?",
+          "options": [
+            "비용 대비 가치(VFM)",
+            "투명성(Transparency)",
+            "최저가 낙찰 우선성",
+            "책임성(Accountability)"
+          ],
+          "answer": 2,
+          "explanation": "공공조달의 5대 기본원칙은 비용 대비 가치(VFM), 윤리, 경쟁성, 투명성, 책임성입니다. 단순 최저가 낙찰은 기본원칙이 아닙니다."
+        },
+        {
+          "id": 102,
+          "category_id": 1,
+          "question": "국가계약법과 지방계약법의 GPA 국제입찰 고시금액 기준으로 옳지 않은 것은?",
+          "options": [
+            "국가계약법 물품·용역: 2.3억 원 이상",
+            "지방계약법 물품·용역: 3.5억 원 이상",
+            "지방계약법 자치구·군 물품·용역: 7.1억 원 이상",
+            "국가계약법 공사: 265억 원 이상"
+          ],
+          "answer": 3,
+          "explanation": "국가계약법 공사의 GPA 국제입찰 고시금액은 88억 원 이상이며, 265억 원 이상은 지방계약법 공사 기준입니다."
+        },
+        {
+          "id": 103,
+          "category_id": 1,
+          "question": "소액수의계약 적용 시 추정가격 기준과 낙찰하한율 연결이 올바른 것은?",
+          "options": [
+            "물품·용역 소액수의: 88% 이상",
+            "청소·경비 등 단순노무용역: 85% 이상",
+            "공사 수의계약: 87.745% 이상",
+            "지방계약법 2,000만 원 이하 1인견적: 85% 이상"
+          ],
+          "answer": 0,
+          "explanation": "물품·용역 소액수의계약 낙찰하한율은 88% 이상입니다. 단순노무용역은 90%, 공사 수의계약은 89.745%, 지방계약법 1인견적은 90%입니다."
+        },
+        {
+          "id": 104,
+          "category_id": 1,
+          "question": "기술개발제품 우선구매제도에 관한 설명 중 옳은 것은?",
+          "options": [
+            "공공기관은 중소기업 물품 구매액의 5% 이상을 기술개발제품으로 구매해야 한다.",
+            "우선구매 대상 인증은 성능인증, NEP, GS인증 등 13종이 포함된다.",
+            "기술개발제품 우선구매는 의무 사항이 아닌 권장 사항이다.",
+            "중소기업자 간 경쟁제품 지정 기간은 제한이 없다."
+          ],
+          "answer": 1,
+          "explanation": "기술개발제품 우선구매 비율은 중소기업 물품 구매액의 15% 이상 의무 구매이며, 대상 인증은 13종입니다."
+        },
+        {
+          "id": 105,
+          "category_id": 1,
+          "question": "공공조달 부당특약에 관한 설명으로 옳지 않은 것은?",
+          "options": [
+            "계약상대자의 이익을 부당하게 제한하는 특약은 무효로 한다.",
+            "국가계약법 제5조 제3항 및 제4항에 명시되어 있다.",
+            "발주기관의 필요에 의해 합의된 부당특약은 유효하다.",
+            "지방계약법 제6조 제3항에도 동일하게 부당특약 무효 규정이 있다."
+          ],
+          "answer": 2,
+          "explanation": "계약상대자의 이익을 부당하게 제한하는 특약은 당사자 간 합의가 있더라도 법률에 의해 무효가 됩니다."
+        },
+        {
+          "id": 201,
+          "category_id": 2,
+          "question": "사전규격공개 기간에 대한 설명으로 올바른 것은?",
+          "options": [
+            "일반적인 사업은 5일 이상 공개한다.",
+            "긴급을 요하는 사업은 1일간 공개한다.",
+            "SW 구축사업은 5일간 공개한다.",
+            "모든 규격공개는 예외 없이 10일 이상 공개해야 한다."
+          ],
+          "answer": 0,
+          "explanation": "사전규격공개 기간은 일반 5일 이상, 긴급/소액 3일 이상, SW 사업 등 고도화 사업은 10일 이상입니다."
+        },
+        {
+          "id": 202,
+          "category_id": 2,
+          "question": "협상에 의한 계약에서 협상적격자를 선정하는 기준으로 옳은 것은?",
+          "options": [
+            "기술능력평가 분야 배점한도의 70% 이상인 자",
+            "기술능력평가 분야 배점한도의 85% 이상인 자",
+            "기술 및 가격 평가 합산점수가 80점 이상인 자",
+            "가격평가 점수가 최상위인 자"
+          ],
+          "answer": 1,
+          "explanation": "협상에 의한 계약 체결기준상 제안서 평가결과 기술능력평가 분야 배점한도의 85% 이상인 자를 협상적격자로 선정합니다."
+        },
+        {
+          "id": 203,
+          "category_id": 2,
+          "question": "Kraljic의 구매 포트폴리오 매트릭스에서 공급위험도와 재정적 영향이 모두 높은 품목은?",
+          "options": [
+            "일반 품목(Non-critical)",
+            "레버리지 품목(Leverage)",
+            "병목 품목(Bottleneck)",
+            "핵심 전략 품목(Strategic)"
+          ],
+          "answer": 3,
+          "explanation": "공급위험과 재정적 영향이 모두 높은 품목은 '핵심 전략 품목(Strategic Items)'입니다."
+        },
+        {
+          "id": 301,
+          "category_id": 3,
+          "question": "물가변동으로 인한 계약금액 조정(Escalation)의 요건으로 옳은 것은?",
+          "options": [
+            "계약체결 후 60일 경과 및 품목조정률 3% 이상",
+            "계약체결 후 90일 경과 및 품목조정률(또는 지수조정률) 3% 이상",
+            "계약체결 후 180일 경과 및 품목조정률 5% 이상",
+            "계약체결 후 30일 경과 및 품목조정률 1% 이상"
+          ],
+          "answer": 1,
+          "explanation": "물가변동 계약금액 조정은 계약체결 후 90일 이상 경과하고, 품목조정률 또는 지수조정률이 100분의 3(3%) 이상 변동된 때 적용합니다."
+        },
+        {
+          "id": 302,
+          "category_id": 3,
+          "question": "다수공급자계약(MAS) 2단계 경쟁에 관한 설명으로 옳지 않은 것은?",
+          "options": [
+            "중소기업자 간 경쟁제품의 경우 1회 납품요구금액 1억 원 이상일 때 실시한다.",
+            "제안가격은 종합쇼핑몰 계약가격의 90% 미만으로 제출할 수 없다.",
+            "제안서 제출기한까지 제출하지 않은 경우 계약가격으로 제안한 것으로 본다.",
+            "가격 제안 시 계약가격보다 비싸게 제출할 수 있다."
+          ],
+          "answer": 3,
+          "explanation": "MAS 2단계 경쟁에서 제안가격은 나라장터 종합쇼핑몰 계약가격을 초과할 수 없습니다."
+        }
+      ]
+    };
+
+    // State
+    let examData = defaultExamData;
+    let viewMode = 'quiz'; // 'quiz' | 'study'
+    let selectedCategoryId = 0;
+    let filterType = 'all'; // 'all' | 'wrong' | 'bookmarked'
+    let currentIndex = 0;
+    let selectedAnswers = {};
+    let bookmarkedIds = [];
+
+    // Local Storage Loading
+    try {
+      const savedTheme = localStorage.getItem('procure_theme') || 'light';
+      document.documentElement.dataset.theme = savedTheme;
+      document.getElementById('theme-btn').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+      const savedBookmarks = localStorage.getItem('procure_bookmarks');
+      if (savedBookmarks) bookmarkedIds = JSON.parse(savedBookmarks);
+
+      const savedCustom = localStorage.getItem('procure_custom_exam');
+      if (savedCustom) examData = JSON.parse(savedCustom);
+    } catch (e) {}
+
+    // Theme Toggle
+    function toggleTheme() {
+      const current = document.documentElement.dataset.theme || 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next;
+      document.getElementById('theme-btn').textContent = next === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('procure_theme', next);
+    }
+
+    // View Mode
+    function setViewMode(mode) {
+      viewMode = mode;
+      document.getElementById('btn-mode-quiz').className = 'pill-btn ' + (mode === 'quiz' ? 'active' : '');
+      document.getElementById('btn-mode-study').className = 'pill-btn ' + (mode === 'study' ? 'active' : '');
+      renderCard();
+    }
+
+    // Filter
+    function setFilter(type) {
+      filterType = type;
+      currentIndex = 0;
+      document.getElementById('filter-all').className = 'chip-btn ' + (type === 'all' ? 'active' : '');
+      document.getElementById('filter-wrong').className = 'chip-btn ' + (type === 'wrong' ? 'active-wrong' : '');
+      document.getElementById('filter-star').className = 'chip-btn ' + (type === 'bookmarked' ? 'active-star' : '');
+      render();
+    }
+
+    function setCategory(catId) {
+      selectedCategoryId = catId;
+      currentIndex = 0;
+      render();
+    }
+
+    function getFilteredQuestions() {
+      return examData.questions.filter(q => {
+        if (selectedCategoryId !== 0 && q.category_id !== selectedCategoryId) return false;
+        if (filterType === 'bookmarked') return bookmarkedIds.includes(q.id);
+        if (filterType === 'wrong') {
+          const ans = selectedAnswers[q.id];
+          return ans !== undefined && ans !== q.answer;
+        }
+        return true;
+      });
+    }
+
+    function toggleBookmark(qId) {
+      if (bookmarkedIds.includes(qId)) {
+        bookmarkedIds = bookmarkedIds.filter(id => id !== qId);
+      } else {
+        bookmarkedIds.push(qId);
+      }
+      localStorage.setItem('procure_bookmarks', JSON.stringify(bookmarkedIds));
+      updateCounts();
+      renderCard();
+    }
+
+    function selectOption(optIdx) {
+      const list = getFilteredQuestions();
+      const currentQ = list[currentIndex];
+      if (!currentQ) return;
+      selectedAnswers[currentQ.id] = optIdx;
+      updateCounts();
+      render();
+    }
+
+    function resetCurrentQuestion() {
+      const list = getFilteredQuestions();
+      const currentQ = list[currentIndex];
+      if (!currentQ) return;
+      delete selectedAnswers[currentQ.id];
+      updateCounts();
+      renderCard();
+    }
+
+    function jumpToQuestion(idx) {
+      currentIndex = idx;
+      renderCard();
+    }
+
+    function prevQuestion() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderCard();
+      }
+    }
+
+    function nextQuestion() {
+      const list = getFilteredQuestions();
+      if (currentIndex < list.length - 1) {
+        currentIndex++;
+        renderCard();
+      }
+    }
+
+    function updateCounts() {
+      const wrongCount = examData.questions.filter(q => {
+        const ans = selectedAnswers[q.id];
+        return ans !== undefined && ans !== q.answer;
+      }).length;
+      document.getElementById('wrong-count').textContent = wrongCount;
+      document.getElementById('bookmark-count').textContent = bookmarkedIds.length;
+    }
+
+    function renderCategoryBar() {
+      const container = document.getElementById('category-bar');
+      let html = `<button class="cat-btn ${selectedCategoryId === 0 ? 'active' : ''}" onclick="setCategory(0)">전체 과목 (${examData.questions.length})</button>`;
+      examData.categories.forEach(cat => {
+        const count = examData.questions.filter(q => q.category_id === cat.id).length;
+        html += `<button class="cat-btn ${selectedCategoryId === cat.id ? 'active' : ''}" onclick="setCategory(${cat.id})">${cat.name} (${count})</button>`;
+      });
+      container.innerHTML = html;
+    }
+
+    function renderCard() {
+      const list = getFilteredQuestions();
+      if (currentIndex >= list.length) currentIndex = 0;
+      const currentQ = list[currentIndex];
+
+      // Update question selector
+      const select = document.getElementById('question-select');
+      select.innerHTML = list.map((q, idx) => `
+        <option value="${idx}" ${idx === currentIndex ? 'selected' : ''}>문항 ${q.id} ${selectedAnswers[q.id] !== undefined ? '(풀이완료)' : ''}</option>
+      `).join('');
+      document.getElementById('question-counter').textContent = `(${list.length > 0 ? currentIndex + 1 : 0} / ${list.length})`;
+
+      const cardContainer = document.getElementById('card-container');
+      if (!currentQ) {
+        cardContainer.innerHTML = `
+          <div class="study-card" style="text-align: center; padding: 3.5rem;">
+            <p style="font-size: 1.05rem; color: var(--text-muted); margin-bottom: 1.25rem;">선택한 조건에 해당하는 문제가 없습니다.</p>
+            <button class="nav-action-btn primary" style="margin: 0 auto;" onclick="setCategory(0); setFilter('all');">전체 문제 보기</button>
+          </div>
+        `;
+        return;
+      }
+
+      const catName = (examData.categories.find(c => c.id === currentQ.category_id) || {}).name || `과목 ${currentQ.category_id}`;
+      const isBookmarked = bookmarkedIds.includes(currentQ.id);
+      const userAns = selectedAnswers[currentQ.id];
+      const isAnswered = userAns !== undefined;
+      const showSolution = viewMode === 'study' || isAnswered;
+
+      let choicesHtml = '';
+      currentQ.options.forEach((opt, idx) => {
+        const isSelected = userAns === idx;
+        const isCorrect = currentQ.answer === idx;
+        let choiceClass = 'choice-btn';
+        if (isSelected) choiceClass += ' selected';
+        if (showSolution) {
+          if (isCorrect) choiceClass += ' is-correct';
+          else if (isSelected && !isCorrect) choiceClass += ' is-wrong';
+        }
+
+        let tagHtml = '';
+        if (showSolution && isCorrect) tagHtml = '<span class="choice-status-tag" style="color: var(--success)">✓ 정답</span>';
+        else if (showSolution && isSelected && !isCorrect) tagHtml = '<span class="choice-status-tag" style="color: var(--danger)">✕ 오답</span>';
+
+        choicesHtml += `
+          <button class="${choiceClass}" onclick="selectOption(${idx})">
+            <span class="choice-num">${idx + 1}</span>
+            <span class="choice-label">${opt}</span>
+            ${tagHtml}
+          </button>
+        `;
+      });
+
+      let solutionHtml = '';
+      if (showSolution) {
+        solutionHtml = `
+          <div class="solution-box">
+            <div class="solution-title">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="16" x2="12" y2="12" />
+                <line x1="12" y1="8" x2="12.01" y2="8" />
+              </svg>
+              <span>정답: ${currentQ.answer + 1}번 & 해설</span>
+            </div>
+            <div class="solution-body">${currentQ.explanation}</div>
+          </div>
+        `;
+      }
+
+      let resetBtnHtml = '';
+      if (isAnswered && viewMode === 'quiz') {
+        resetBtnHtml = `<button class="btn-star" onclick="resetCurrentQuestion()" title="이 문제 다시 풀기">↺ 다시 풀기</button>`;
+      }
+
+      cardContainer.innerHTML = `
+        <div class="study-card">
+          <div class="card-top">
+            <div class="q-badge">
+              <span class="badge-num">문항 ${currentQ.id}</span>
+              <span class="badge-cat">${catName}</span>
+            </div>
+            <div style="display: flex; gap: 0.5rem;">
+              ${resetBtnHtml}
+              <button class="btn-star ${isBookmarked ? 'starred' : ''}" onclick="toggleBookmark(${currentQ.id})" title="단축키 B">
+                ★ ${isBookmarked ? '북마크됨' : '북마크'}
+              </button>
+            </div>
+          </div>
+
+          <div class="question-text">${currentQ.question}</div>
+
+          <div class="choices-container">${choicesHtml}</div>
+
+          ${solutionHtml}
+
+          <div class="card-footer">
+            <button class="nav-action-btn" onclick="prevQuestion()" ${currentIndex === 0 ? 'disabled' : ''} title="단축키 ←">
+              이전 문제
+            </button>
+            <span style="font-size: 0.825rem; color: var(--text-light)">키보드 1~4번 선택, 좌우 방향키로 이동</span>
+            <button class="nav-action-btn primary" onclick="nextQuestion()" ${currentIndex === list.length - 1 ? 'disabled' : ''} title="단축키 →">
+              다음 문제
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function render() {
+      document.getElementById('page-title').textContent = examData.title;
+      renderCategoryBar();
+      updateCounts();
+      renderCard();
+    }
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (document.getElementById('json-modal').style.display === 'flex') return;
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+      if (['1', '2', '3', '4'].includes(e.key)) {
+        selectOption(parseInt(e.key, 10) - 1);
+      } else if (e.key === 'ArrowLeft') {
+        prevQuestion();
+      } else if (e.key === 'ArrowRight') {
+        nextQuestion();
+      } else if (e.key.toLowerCase() === 'b') {
+        const list = getFilteredQuestions();
+        if (list[currentIndex]) toggleBookmark(list[currentIndex].id);
+      }
+    });
+
+    // JSON Management
+    function openJsonModal() {
+      document.getElementById('json-textarea').value = JSON.stringify(examData, null, 2);
+      document.getElementById('json-error').style.display = 'none';
+      document.getElementById('json-modal').style.display = 'flex';
+    }
+
+    function closeJsonModal() {
+      document.getElementById('json-modal').style.display = 'none';
+    }
+
+    function saveJsonData() {
+      try {
+        const val = document.getElementById('json-textarea').value;
+        const parsed = JSON.parse(val);
+        if (!parsed.questions || !Array.isArray(parsed.questions)) {
+          throw new Error('questions 배열이 올바르지 않습니다.');
+        }
+        examData = parsed;
+        localStorage.setItem('procure_custom_exam', JSON.stringify(parsed));
+        closeJsonModal();
+        render();
+        alert(`저장되었습니다! (총 ${parsed.questions.length}문항)`);
+      } catch (err) {
+        const errorBox = document.getElementById('json-error');
+        errorBox.textContent = err.message || 'JSON 형식이 잘못되었습니다.';
+        errorBox.style.display = 'block';
+      }
+    }
+
+    function resetToDefaultJson() {
+      if (confirm('기본 문제 데이터로 복원하시겠습니까?')) {
+        examData = defaultExamData;
+        localStorage.removeItem('procure_custom_exam');
+        closeJsonModal();
+        render();
+      }
+    }
+
+    // Initialize
+    render();
+  </script>
+</body>
+</html>
