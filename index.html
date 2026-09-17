@@ -2,10 +2,9 @@
 <html lang="ko" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>공공조달관리사 필기시험 400제 모의고사 | Procure</title>
   <meta name="description" content="공공조달관리사 필기시험 400제 및 1~3권 랜덤 10제 스마트 모의시험 시스템" />
-  <!-- Fast Inline Favicon to prevent tab loading spin -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📋</text></svg>">
   <style>
     :root {
@@ -24,7 +23,7 @@
       --primary-subtle: #eff6ff;
       --primary-border: #bfdbfe;
 
-      --accent: #8b5cf6;
+      --accent: #7c3aed;
       --accent-subtle: #f5f3ff;
       --accent-border: #ddd6fe;
 
@@ -43,14 +42,12 @@
 
       --radius-sm: 8px;
       --radius-md: 12px;
-      --radius-lg: 20px;
+      --radius-lg: 16px;
       --radius-full: 9999px;
 
       --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.06);
-      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.04);
-      --shadow-lg: 0 12px 24px -4px rgb(0 0 0 / 0.08);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08);
 
-      /* High-performance Zero-latency native system font stack */
       --font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", "Segoe UI", Roboto, sans-serif;
       --transition: all 0.15s ease-out;
     }
@@ -90,7 +87,6 @@
 
       --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.4);
       --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3);
-      --shadow-lg: 0 12px 24px -4px rgb(0 0 0 / 0.4);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -99,8 +95,9 @@
       font-family: var(--font-family);
       background-color: var(--bg-main);
       color: var(--text-main);
-      line-height: 1.6;
+      line-height: 1.5;
       -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
     }
     button, select, textarea { font-family: inherit; }
     button { cursor: pointer; border: none; background: none; }
@@ -112,47 +109,59 @@
       z-index: 30;
       background: var(--bg-card);
       border-bottom: 1px solid var(--border-subtle);
-      padding: 0.85rem 1.5rem;
+      padding: 0.75rem 1rem;
     }
     .header-inner {
       max-width: 980px;
       margin: 0 auto;
       display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .header-top-row {
+      display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
+      gap: 0.5rem;
     }
-    .brand { display: flex; align-items: center; gap: 0.75rem; }
+    .brand { display: flex; align-items: center; gap: 0.5rem; }
     .brand-badge {
       background: linear-gradient(135deg, #2563eb, #7c3aed);
       color: #fff;
-      font-size: 0.725rem;
+      font-size: 0.7rem;
       font-weight: 800;
-      padding: 0.25rem 0.55rem;
+      padding: 0.2rem 0.5rem;
       border-radius: var(--radius-sm);
       letter-spacing: 0.05em;
     }
     .brand-title {
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 800;
       color: var(--text-main);
       letter-spacing: -0.02em;
+      white-space: nowrap;
     }
-    .header-actions { display: flex; align-items: center; gap: 0.6rem; }
+    .header-actions { display: flex; align-items: center; gap: 0.5rem; }
+
+    /* Mode Switcher Pill */
     .view-mode-pill {
       display: flex;
+      width: 100%;
       background: var(--bg-subtle);
-      padding: 0.2rem;
+      padding: 0.25rem;
       border-radius: var(--radius-full);
       border: 1px solid var(--border-subtle);
     }
     .pill-btn {
-      padding: 0.35rem 0.75rem;
-      font-size: 0.8rem;
-      font-weight: 600;
+      flex: 1;
+      padding: 0.45rem 0.6rem;
+      font-size: 0.85rem;
+      font-weight: 700;
       border-radius: var(--radius-full);
       color: var(--text-muted);
       transition: var(--transition);
+      text-align: center;
+      white-space: nowrap;
     }
     .pill-btn.active {
       background: var(--primary);
@@ -176,70 +185,123 @@
     /* Main Container */
     .study-container {
       max-width: 980px;
-      margin: 1.5rem auto 3rem auto;
-      padding: 0 1.25rem;
+      margin: 1rem auto 2.5rem auto;
+      padding: 0 0.85rem;
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
+      gap: 1rem;
     }
 
-    /* Category Bar */
-    .category-bar {
-      display: flex;
-      gap: 0.5rem;
-      overflow-x: auto;
-      padding-bottom: 4px;
-      align-items: center;
-    }
-    .cat-btn {
-      padding: 0.5rem 1rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      border-radius: var(--radius-full);
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-muted);
-      white-space: nowrap;
-      transition: var(--transition);
-    }
-    .cat-btn:hover { border-color: var(--border-focus); color: var(--text-main); }
-    .cat-btn.active {
-      background: var(--primary-subtle);
-      color: var(--primary);
-      border-color: var(--primary-border);
-    }
-    .cat-btn.random-mode {
-      background: var(--accent-subtle);
-      color: var(--accent);
-      border-color: var(--accent-border);
-      font-weight: 700;
-    }
-    .cat-btn.random-mode.active {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-      box-shadow: 0 2px 8px rgba(139, 92, 246, 0.35);
-    }
-
-    /* Random Banner */
-    .random-banner {
+    /* Random 10 Prominent Feature Card */
+    .random-feature-card {
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(37, 99, 235, 0.08));
+      border: 1.5px solid var(--accent-border);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
-      padding: 0.85rem 1.25rem;
+      gap: 0.75rem;
+      transition: var(--transition);
+    }
+    .random-feature-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 2px 10px rgba(124, 58, 237, 0.15);
+    }
+    .random-feature-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .random-feature-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .random-feature-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .btn-start-random {
+      padding: 0.5rem 0.9rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      color: #fff;
+      white-space: nowrap;
+      transition: var(--transition);
+      box-shadow: 0 2px 6px rgba(124, 58, 237, 0.3);
+    }
+    .btn-start-random:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+    }
+
+    /* Category Grid on Mobile */
+    .category-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .category-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.4rem;
+    }
+    .cat-grid-btn {
+      padding: 0.55rem 0.65rem;
+      font-size: 0.825rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      text-align: center;
+      transition: var(--transition);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .cat-grid-btn.full-width {
+      grid-column: span 2;
+      font-weight: 700;
+    }
+    .cat-grid-btn:hover { border-color: var(--border-focus); color: var(--text-main); }
+    .cat-grid-btn.active {
+      background: var(--primary-subtle);
+      color: var(--primary);
+      border-color: var(--primary-border);
+      font-weight: 700;
+    }
+
+    /* Random Active Banner */
+    .random-banner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      padding: 0.85rem 1rem;
       background: var(--accent-subtle);
-      border: 1px solid var(--accent-border);
+      border: 1.5px solid var(--accent-border);
       border-radius: var(--radius-md);
       color: var(--text-main);
       animation: fadeIn 0.2s ease-out;
     }
     .random-banner-title {
-      font-size: 0.925rem;
-      font-weight: 700;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--accent);
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.4rem;
     }
     .random-banner-actions {
       display: flex;
@@ -247,26 +309,24 @@
       gap: 0.5rem;
     }
     .btn-random-respin {
-      padding: 0.35rem 0.75rem;
-      font-size: 0.8rem;
+      flex: 1;
+      padding: 0.45rem 0.75rem;
+      font-size: 0.825rem;
       font-weight: 700;
       border-radius: var(--radius-sm);
       background: var(--accent);
       color: #fff;
-      transition: var(--transition);
-    }
-    .btn-random-respin:hover {
-      opacity: 0.9;
-      transform: translateY(-1px);
+      text-align: center;
     }
     .btn-random-quit {
-      padding: 0.35rem 0.65rem;
-      font-size: 0.8rem;
+      padding: 0.45rem 0.75rem;
+      font-size: 0.825rem;
       font-weight: 600;
       border-radius: var(--radius-sm);
       border: 1px solid var(--border-subtle);
       background: var(--bg-card);
       color: var(--text-muted);
+      text-align: center;
     }
 
     /* Status Bar */
@@ -274,40 +334,49 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
+      gap: 0.6rem;
       flex-wrap: wrap;
-      padding: 0.75rem 1.25rem;
+      padding: 0.65rem 0.85rem;
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      font-size: 0.875rem;
     }
     .progress-info {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      font-weight: 600;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 700;
     }
     .question-select {
-      padding: 0.35rem 0.65rem;
+      padding: 0.35rem 0.5rem;
       border-radius: var(--radius-sm);
       border: 1px solid var(--border-subtle);
       background: var(--bg-subtle);
       color: var(--text-main);
-      font-size: 0.85rem;
-      font-weight: 600;
+      font-size: 0.825rem;
+      font-weight: 700;
       outline: none;
     }
-    .filter-buttons { display: flex; align-items: center; gap: 0.5rem; }
+    .filter-buttons {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      width: 100%;
+      justify-content: space-between;
+    }
     .chip-btn {
-      padding: 0.3rem 0.7rem;
-      font-size: 0.8rem;
-      font-weight: 600;
+      flex: 1;
+      padding: 0.4rem 0.3rem;
+      font-size: 0.775rem;
+      font-weight: 700;
       border-radius: var(--radius-sm);
       border: 1px solid var(--border-subtle);
       background: var(--bg-subtle);
       color: var(--text-muted);
+      text-align: center;
       transition: var(--transition);
+      white-space: nowrap;
     }
     .chip-btn.active {
       background: var(--primary);
@@ -330,44 +399,44 @@
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
-      padding: 2rem;
+      padding: 1.25rem 1rem;
       box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1.25rem;
       transition: var(--transition);
     }
     .card-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
+      gap: 0.5rem;
     }
-    .q-badge { display: flex; align-items: center; gap: 0.5rem; }
+    .q-badge { display: flex; align-items: center; gap: 0.35rem; }
     .badge-num {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 800;
       color: var(--primary);
       background: var(--primary-subtle);
-      padding: 0.3rem 0.7rem;
+      padding: 0.25rem 0.55rem;
       border-radius: var(--radius-sm);
       border: 1px solid var(--primary-border);
     }
     .badge-cat {
-      font-size: 0.825rem;
+      font-size: 0.775rem;
       font-weight: 600;
       color: var(--text-muted);
       background: var(--bg-subtle);
-      padding: 0.3rem 0.65rem;
+      padding: 0.25rem 0.5rem;
       border-radius: var(--radius-sm);
     }
     .btn-star {
       display: flex;
       align-items: center;
-      gap: 0.35rem;
-      font-size: 0.825rem;
-      font-weight: 600;
-      padding: 0.35rem 0.75rem;
+      gap: 0.3rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.3rem 0.65rem;
       border-radius: var(--radius-md);
       border: 1px solid var(--border-subtle);
       color: var(--text-muted);
@@ -381,9 +450,9 @@
 
     /* Question Title */
     .question-text {
-      font-size: 1.25rem;
+      font-size: 1.125rem;
       font-weight: 700;
-      line-height: 1.6;
+      line-height: 1.55;
       color: var(--text-main);
       letter-spacing: -0.01em;
     }
@@ -392,28 +461,27 @@
     .choices-container {
       display: flex;
       flex-direction: column;
-      gap: 0.85rem;
+      gap: 0.65rem;
     }
     .choice-btn {
       display: flex;
       align-items: flex-start;
-      gap: 1rem;
-      padding: 1rem 1.25rem;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
       border-radius: var(--radius-md);
       border: 1.5px solid var(--border-subtle);
       background: var(--bg-card);
       color: var(--text-main);
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 500;
       text-align: left;
-      line-height: 1.5;
+      line-height: 1.45;
       transition: var(--transition);
       width: 100%;
     }
     .choice-btn:hover {
       border-color: var(--border-focus);
       background: var(--bg-subtle);
-      transform: translateY(-1px);
     }
     .choice-btn.selected {
       border-color: var(--primary);
@@ -431,16 +499,16 @@
       color: var(--danger-text);
     }
     .choice-num {
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       background: var(--bg-subtle);
       border: 1px solid var(--border-subtle);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.825rem;
-      font-weight: 700;
+      font-size: 0.775rem;
+      font-weight: 800;
       color: var(--text-muted);
       flex-shrink: 0;
       margin-top: 1px;
@@ -462,9 +530,10 @@
     }
     .choice-label { flex: 1; }
     .choice-status-tag {
-      font-size: 0.85rem;
+      font-size: 0.825rem;
       font-weight: 800;
       margin-left: auto;
+      white-space: nowrap;
     }
 
     /* Solution Box */
@@ -472,37 +541,38 @@
       background: var(--bg-subtle);
       border-left: 4px solid var(--primary);
       border-radius: var(--radius-md);
-      padding: 1.25rem 1.5rem;
+      padding: 1rem 1.15rem;
       animation: fadeIn 0.2s ease-out;
     }
     .solution-title {
       display: flex;
       align-items: center;
       gap: 0.4rem;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 700;
       color: var(--primary);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
     }
     .solution-body {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: var(--text-main);
-      line-height: 1.65;
+      line-height: 1.6;
     }
 
-    /* Card Footer */
+    /* Card Footer Navigation */
     .card-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
-      padding-top: 1.25rem;
+      gap: 0.6rem;
+      padding-top: 1rem;
       border-top: 1px solid var(--border-subtle);
     }
     .nav-action-btn {
-      padding: 0.7rem 1.35rem;
-      font-size: 0.9rem;
-      font-weight: 600;
+      flex: 1;
+      padding: 0.75rem 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 700;
       border-radius: var(--radius-md);
       border: 1px solid var(--border-subtle);
       background: var(--bg-card);
@@ -510,24 +580,22 @@
       transition: var(--transition);
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      justify-content: center;
+      gap: 0.4rem;
+      white-space: nowrap;
     }
     .nav-action-btn:hover:not(:disabled) {
       background: var(--bg-subtle);
       border-color: var(--border-focus);
     }
     .nav-action-btn:disabled {
-      opacity: 0.4;
+      opacity: 0.35;
       cursor: not-allowed;
     }
     .nav-action-btn.primary {
       background: var(--primary);
       color: #fff;
       border-color: var(--primary);
-    }
-    .nav-action-btn.primary:hover:not(:disabled) {
-      background: var(--primary-hover);
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
     }
 
     /* Modal */
@@ -539,33 +607,47 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem;
+      padding: 1rem;
     }
     .modal-box {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
-      max-width: 650px;
+      max-width: 600px;
       width: 100%;
       max-height: 85vh;
       display: flex;
       flex-direction: column;
-      padding: 1.75rem;
-      gap: 1.25rem;
-      box-shadow: var(--shadow-lg);
+      padding: 1.5rem 1.25rem;
+      gap: 1rem;
+      box-shadow: var(--shadow-md);
     }
 
     /* Score Report in Random Mode */
     .score-card {
       text-align: center;
-      padding: 1.5rem;
+      padding: 1.25rem;
       border-radius: var(--radius-md);
       background: var(--bg-subtle);
       border: 1px solid var(--border-subtle);
-      margin-top: 1rem;
+      margin-top: 0.75rem;
     }
-    .score-title { font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem; }
-    .score-val { font-size: 2.5rem; font-weight: 900; color: var(--primary); }
+    .score-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.35rem; }
+    .score-val { font-size: 2.25rem; font-weight: 900; color: var(--primary); }
+
+    /* Desktop Enhancements */
+    @media (min-width: 640px) {
+      .header-inner { flex-direction: row; align-items: center; justify-content: space-between; }
+      .view-mode-pill { width: auto; }
+      .category-grid { grid-template-columns: repeat(5, 1fr); }
+      .cat-grid-btn.full-width { grid-column: auto; }
+      .study-card { padding: 2rem; }
+      .filter-buttons { width: auto; }
+      .chip-btn { flex: initial; padding: 0.35rem 0.75rem; }
+      .nav-action-btn { flex: initial; padding: 0.7rem 1.35rem; }
+      .desktop-hint { display: inline !important; }
+    }
+    .desktop-hint { display: none; }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(4px); }
@@ -577,50 +659,64 @@
   <!-- Header -->
   <header class="header">
     <div class="header-inner">
-      <div class="brand">
-        <span class="brand-badge">PROCURE</span>
-        <h1 class="brand-title" id="page-title">공공조달관리사 필기시험 400제 모의고사</h1>
+      <div class="header-top-row">
+        <div class="brand">
+          <span class="brand-badge">PROCURE</span>
+          <h1 class="brand-title">400제 모의고사</h1>
+        </div>
+        <div class="header-actions">
+          <button class="icon-btn" onclick="openJsonModal()" title="400제 문제 데이터(JSON) 관리">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="12" y1="18" x2="12" y2="12" />
+              <line x1="9" y1="15" x2="15" y2="15" />
+            </svg>
+          </button>
+          <button class="icon-btn" onclick="toggleTheme()" id="theme-btn" title="다크/라이트 모드 전환">
+            🌙
+          </button>
+        </div>
       </div>
 
-      <div class="header-actions">
-        <!-- View Mode -->
-        <div class="view-mode-pill">
-          <button id="btn-mode-quiz" class="pill-btn active" onclick="setViewMode('quiz')">✏️ 문제 풀기</button>
-          <button id="btn-mode-study" class="pill-btn" onclick="setViewMode('study')">📖 정답·해설 보기</button>
-        </div>
-
-        <!-- JSON Modal Button -->
-        <button class="icon-btn" onclick="openJsonModal()" title="400제 문제 데이터(JSON) 관리">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-            <polyline points="14 2 14 8 20 8" />
-            <line x1="12" y1="18" x2="12" y2="12" />
-            <line x1="9" y1="15" x2="15" y2="15" />
-          </svg>
-        </button>
-
-        <!-- Dark/Light Theme -->
-        <button class="icon-btn" onclick="toggleTheme()" id="theme-btn" title="다크/라이트 모드 전환">
-          🌙
-        </button>
+      <!-- Mode Switcher Pill (Full Width on Mobile) -->
+      <div class="view-mode-pill">
+        <button id="btn-mode-quiz" class="pill-btn active" onclick="setViewMode('quiz')">✏️ 문제 풀기</button>
+        <button id="btn-mode-study" class="pill-btn" onclick="setViewMode('study')">📖 정답·해설 보기</button>
       </div>
     </div>
   </header>
 
   <!-- Main Container -->
   <main class="study-container">
-    <!-- Category Filter Bar -->
-    <div class="category-bar" id="category-bar"></div>
+    <!-- Highlighted Random 10 Card (Always visible at top) -->
+    <div class="random-feature-card">
+      <div class="random-feature-info">
+        <div class="random-feature-title">
+          <span>🎲 1~3권 랜덤 10제 미니 모의시험</span>
+        </div>
+        <div class="random-feature-desc">1~3권(300문항)에서 무작위 10문제 추출 후 실전 채점</div>
+      </div>
+      <button class="btn-start-random" onclick="startRandom10Exam()">
+        지금 시험 치기 ▶
+      </button>
+    </div>
 
-    <!-- Random 10 Mode Banner (shown when active) -->
+    <!-- Category Grid (100% visible on mobile, NO scrolling required!) -->
+    <div class="category-section">
+      <div class="category-label">과목별 문항 선택</div>
+      <div class="category-grid" id="category-grid"></div>
+    </div>
+
+    <!-- Random 10 Mode Banner (shown when random mode is active) -->
     <div id="random-banner" class="random-banner" style="display: none;">
       <div class="random-banner-title">
         <span>🎲</span>
-        <span><strong>1~3권 랜덤 10제 미니 모의시험</strong> 진행 중 (총 300문항 중 10문제 무작위 추출)</span>
+        <span>1~3권 랜덤 10제 모의시험 진행 중</span>
       </div>
       <div class="random-banner-actions">
         <button class="btn-random-respin" onclick="startRandom10Exam()">🔄 새 10문제 뽑기</button>
-        <button class="btn-random-quit" onclick="exitRandom10Mode()">전체 목록으로 나가기</button>
+        <button class="btn-random-quit" onclick="exitRandom10Mode()">전체 목록으로</button>
       </div>
     </div>
 
@@ -633,8 +729,8 @@
       </div>
 
       <div class="filter-buttons">
-        <button class="chip-btn active" id="filter-all" onclick="setFilter('all')">전체 보기</button>
-        <button class="chip-btn" id="filter-wrong" onclick="setFilter('wrong')">⚠️ 오답노트 (<span id="wrong-count">0</span>)</button>
+        <button class="chip-btn active" id="filter-all" onclick="setFilter('all')">전체</button>
+        <button class="chip-btn" id="filter-wrong" onclick="setFilter('wrong')">⚠️ 오답 (<span id="wrong-count">0</span>)</button>
         <button class="chip-btn" id="filter-star" onclick="setFilter('bookmarked')">★ 북마크 (<span id="bookmark-count">0</span>)</button>
       </div>
     </div>
@@ -648,21 +744,21 @@
     <div class="modal-box" onclick="event.stopPropagation()">
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <div>
-          <h2 style="font-size: 1.25rem; font-weight: 800;">문제 데이터 (JSON) 관리</h2>
-          <p style="font-size: 0.8rem; color: var(--text-muted);">전체 400문제 JSON 데이터를 열람하거나 직접 수정하여 저장할 수 있습니다.</p>
+          <h2 style="font-size: 1.15rem; font-weight: 800;">문제 데이터 (JSON) 관리</h2>
+          <p style="font-size: 0.775rem; color: var(--text-muted);">전체 400문제 JSON 데이터를 열람하거나 직접 수정할 수 있습니다.</p>
         </div>
         <button onclick="closeJsonModal()" style="font-size: 1.25rem; color: var(--text-muted);">✕</button>
       </div>
 
       <div id="json-error" style="display: none; padding: 0.65rem; background: var(--danger-bg); color: var(--danger-text); border-radius: var(--radius-sm); font-size: 0.85rem;"></div>
 
-      <textarea id="json-textarea" style="width: 100%; height: 320px; font-family: monospace; font-size: 0.825rem; padding: 0.85rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); background: var(--bg-subtle); color: var(--text-main); line-height: 1.4;"></textarea>
+      <textarea id="json-textarea" style="width: 100%; height: 280px; font-family: monospace; font-size: 0.8rem; padding: 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); background: var(--bg-subtle); color: var(--text-main); line-height: 1.4;"></textarea>
 
       <div style="display: flex; justify-content: space-between; gap: 0.5rem;">
-        <button class="nav-action-btn" onclick="resetToDefaultJson()" style="color: var(--danger);">기본 400제로 복원</button>
-        <div style="display: flex; gap: 0.5rem;">
-          <button class="nav-action-btn" onclick="closeJsonModal()">닫기</button>
-          <button class="nav-action-btn primary" onclick="saveJsonData()">저장 및 적용</button>
+        <button class="nav-action-btn" onclick="resetToDefaultJson()" style="color: var(--danger); font-size: 0.8rem;">기본 400제로 복원</button>
+        <div style="display: flex; gap: 0.4rem;">
+          <button class="nav-action-btn" onclick="closeJsonModal()" style="font-size: 0.8rem;">닫기</button>
+          <button class="nav-action-btn primary" onclick="saveJsonData()" style="font-size: 0.8rem;">저장 및 적용</button>
         </div>
       </div>
     </div>
@@ -743,6 +839,7 @@
 
       document.getElementById('random-banner').style.display = 'flex';
       render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function exitRandom10Mode() {
@@ -826,16 +923,21 @@
       document.getElementById('bookmark-count').textContent = bookmarkedIds.length;
     }
 
-    function renderCategoryBar() {
-      const container = document.getElementById('category-bar');
-      let html = `<button class="cat-btn ${selectedCategoryId === 0 ? 'active' : ''}" onclick="setCategory(0)">전체 과목 (${examData.questions.length})</button>`;
+    function renderCategoryGrid() {
+      const container = document.getElementById('category-grid');
+      let html = `<button class="cat-grid-btn full-width ${selectedCategoryId === 0 && !isRandom10Mode ? 'active' : ''}" onclick="setCategory(0)">전체 과목 (400문항)</button>`;
       
-      examData.categories.forEach(cat => {
-        const count = examData.questions.filter(q => q.category_id === cat.id).length;
-        html += `<button class="cat-btn ${selectedCategoryId === cat.id ? 'active' : ''}" onclick="setCategory(${cat.id})">${cat.name} (${count})</button>`;
-      });
+      const shortNames = [
+        "1권: 공공조달의 이해 (100)",
+        "2권: 공공조달 계획분석 (100)",
+        "3권: 공공계약관리 (100)",
+        "4권: 공공조달 관리실무 (100)"
+      ];
 
-      html += `<button class="cat-btn random-mode ${isRandom10Mode ? 'active' : ''}" onclick="startRandom10Exam()">🎲 1~3권 랜덤 10제 시험</button>`;
+      examData.categories.forEach((cat, i) => {
+        const title = shortNames[i] || cat.name;
+        html += `<button class="cat-grid-btn ${selectedCategoryId === cat.id && !isRandom10Mode ? 'active' : ''}" onclick="setCategory(${cat.id})">${title}</button>`;
+      });
 
       container.innerHTML = html;
     }
@@ -848,7 +950,7 @@
       const select = document.getElementById('question-select');
       select.innerHTML = list.map((q, idx) => `
         <option value="${idx}" ${idx === currentIndex ? 'selected' : ''}>
-          ${isRandom10Mode ? `[${idx+1}번] ` : ''}문항 ${q.id} ${selectedAnswers[q.id] !== undefined ? '(풀이완료)' : ''}
+          ${isRandom10Mode ? `[${idx+1}번] ` : ''}문항 ${q.id} ${selectedAnswers[q.id] !== undefined ? '(완료)' : ''}
         </option>
       `).join('');
       document.getElementById('question-counter').textContent = `(${list.length > 0 ? currentIndex + 1 : 0} / ${list.length})`;
@@ -856,8 +958,8 @@
       const cardContainer = document.getElementById('card-container');
       if (!currentQ) {
         cardContainer.innerHTML = `
-          <div class="study-card" style="text-align: center; padding: 3.5rem;">
-            <p style="font-size: 1.05rem; color: var(--text-muted); margin-bottom: 1.25rem;">선택한 조건에 해당하는 문제가 없습니다.</p>
+          <div class="study-card" style="text-align: center; padding: 2.5rem 1rem;">
+            <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 1rem;">선택한 조건에 해당하는 문제가 없습니다.</p>
             <button class="nav-action-btn primary" style="margin: 0 auto;" onclick="setCategory(0); setFilter('all');">전체 문제 보기</button>
           </div>
         `;
@@ -925,11 +1027,11 @@
           randomSummaryHtml = `
             <div class="score-card">
               <div class="score-title">🎉 10문항 풀이 완료!</div>
-              <div class="score-val">${score}점 <span style="font-size: 1.1rem; color: var(--text-muted); font-weight: 600;">/ 100점 (${correctCount}개 정답)</span></div>
-              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">
+              <div class="score-val">${score}점 <span style="font-size: 1rem; color: var(--text-muted); font-weight: 600;">/ 100점 (${correctCount}개 정답)</span></div>
+              <p style="font-size: 0.825rem; color: var(--text-muted); margin-top: 0.4rem;">
                 ${score >= 60 ? '축하합니다! 합격권 점수입니다.' : '조금만 더 복습해 보세요!'}
               </p>
-              <button class="nav-action-btn primary" style="margin: 0.75rem auto 0 auto;" onclick="startRandom10Exam()">
+              <button class="nav-action-btn primary" style="margin: 0.75rem auto 0 auto; width: 100%;" onclick="startRandom10Exam()">
                 🔄 새로운 10문제 다시 뽑기
               </button>
             </div>
@@ -944,7 +1046,7 @@
               <span class="badge-num">${isRandom10Mode ? `[${currentIndex+1}/10] ` : ''}문항 ${currentQ.id}</span>
               <span class="badge-cat">${catName}</span>
             </div>
-            <div style="display: flex; gap: 0.5rem;">
+            <div style="display: flex; gap: 0.35rem;">
               ${resetBtnHtml}
               <button class="btn-star ${isBookmarked ? 'starred' : ''}" onclick="toggleBookmark(${currentQ.id})" title="단축키 B">
                 ★ ${isBookmarked ? '북마크됨' : '북마크'}
@@ -961,11 +1063,11 @@
 
           <div class="card-footer">
             <button class="nav-action-btn" onclick="prevQuestion()" ${currentIndex === 0 ? 'disabled' : ''} title="단축키 ←">
-              이전 문제
+              ◀ 이전 문제
             </button>
-            <span style="font-size: 0.825rem; color: var(--text-light)">키보드 1~4번 선택, 좌우 방향키로 이동</span>
+            <span class="desktop-hint" style="font-size: 0.825rem; color: var(--text-light)">키보드 1~4번 선택, 좌우 방향키</span>
             <button class="nav-action-btn primary" onclick="nextQuestion()" ${currentIndex === list.length - 1 ? 'disabled' : ''} title="단축키 →">
-              다음 문제
+              다음 문제 ▶
             </button>
           </div>
         </div>
@@ -973,8 +1075,7 @@
     }
 
     function render() {
-      document.getElementById('page-title').textContent = examData.title;
-      renderCategoryBar();
+      renderCategoryGrid();
       updateCounts();
       renderCard();
     }
@@ -1035,7 +1136,6 @@
       }
     }
 
-    // Fast initial render
     render();
   </script>
 </body>
