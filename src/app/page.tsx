@@ -6,11 +6,14 @@ import { ExamData, Question } from '@/types/exam';
 
 export default function ProcureStudyPage() {
   const [examData, setExamData] = useState<ExamData>(initialData as ExamData);
-  const [viewMode, setViewMode] = useState<'quiz' | 'study'>('quiz'); // quiz: 풀이, study: 즉시정답
+  const [viewMode, setViewMode] = useState<'quiz' | 'study'>('quiz');
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
-  // Category & Filters
-  const [selectedCategoryId, setSelectedCategoryId] = useState<number>(0);
+  // Category & Random Mode
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | 'random10'>(0);
+  const [isRandom10Mode, setIsRandom10Mode] = useState<boolean>(false);
+  const [random10Questions, setRandom10Questions] = useState<Question[]>([]);
+
   const [filterType, setFilterType] = useState<'all' | 'wrong' | 'bookmarked'>('all');
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
@@ -35,7 +38,7 @@ export default function ProcureStudyPage() {
       if (savedBookmarks) {
         setBookmarkedIds(JSON.parse(savedBookmarks));
       }
-      const savedCustom = localStorage.getItem('procure_custom_exam');
+      const savedCustom = localStorage.getItem('procure_custom_exam_400');
       if (savedCustom) {
         setExamData(JSON.parse(savedCustom));
       }
@@ -67,8 +70,29 @@ export default function ProcureStudyPage() {
     });
   };
 
+  // 1~3권 랜덤 10제 모의고사 시작
+  const startRandom10Exam = () => {
+    const pool = examData.questions.filter((q) => [1, 2, 3].includes(q.category_id));
+    const shuffled = [...pool].sort(() => 0.5 - Math.random());
+    const picked = shuffled.slice(0, 10);
+    setRandom10Questions(picked);
+    setIsRandom10Mode(true);
+    setSelectedCategoryId('random10');
+    setFilterType('all');
+    setCurrentIndex(0);
+  };
+
+  const exitRandom10Mode = () => {
+    setIsRandom10Mode(false);
+    setSelectedCategoryId(0);
+    setCurrentIndex(0);
+  };
+
   // Filter questions
   const filteredQuestions = useMemo(() => {
+    if (isRandom10Mode) {
+      return random10Questions;
+    }
     return examData.questions.filter((q) => {
       if (selectedCategoryId !== 0 && q.category_id !== selectedCategoryId) {
         return false;
@@ -82,7 +106,7 @@ export default function ProcureStudyPage() {
       }
       return true;
     });
-  }, [examData.questions, selectedCategoryId, filterType, bookmarkedIds, selectedAnswers]);
+  }, [isRandom10Mode, random10Questions, examData.questions, selectedCategoryId, filterType, bookmarkedIds, selectedAnswers]);
 
   // Keep index within bounds
   useEffect(() => {
@@ -155,7 +179,7 @@ export default function ProcureStudyPage() {
         throw new Error('questions 배열이 올바르지 않습니다.');
       }
       setExamData(parsed);
-      localStorage.setItem('procure_custom_exam', JSON.stringify(parsed));
+      localStorage.setItem('procure_custom_exam_400', JSON.stringify(parsed));
       setShowJsonModal(false);
       alert(`저장되었습니다! (총 ${parsed.questions.length}문항)`);
     } catch (err: unknown) {
@@ -164,9 +188,9 @@ export default function ProcureStudyPage() {
   };
 
   const handleResetJson = () => {
-    if (window.confirm('기본 문제 데이터로 초기화하시겠습니까?')) {
+    if (window.confirm('기본 400제 문제 데이터로 복원하시겠습니까?')) {
       setExamData(initialData as ExamData);
-      localStorage.removeItem('procure_custom_exam');
+      localStorage.removeItem('procure_custom_exam_400');
       setShowJsonModal(false);
     }
   };
@@ -175,12 +199,26 @@ export default function ProcureStudyPage() {
   const showSolution = viewMode === 'study' || isAnswered;
 
   // Count wrong answers
+  const currentList = isRandom10Mode ? random10Questions : examData.questions;
   const wrongCount = useMemo(() => {
-    return examData.questions.filter((q) => {
+    return currentList.filter((q) => {
       const ans = selectedAnswers[q.id];
       return ans !== undefined && ans !== q.answer;
     }).length;
-  }, [examData.questions, selectedAnswers]);
+  }, [currentList, selectedAnswers]);
+
+  // Random 10 score calculation
+  const randomScoreInfo = useMemo(() => {
+    if (!isRandom10Mode) return null;
+    const answeredCount = random10Questions.filter((q) => selectedAnswers[q.id] !== undefined).length;
+    const correctCount = random10Questions.filter((q) => selectedAnswers[q.id] === q.answer).length;
+    return {
+      answeredCount,
+      correctCount,
+      score: correctCount * 10,
+      isFinished: answeredCount === 10,
+    };
+  }, [isRandom10Mode, random10Questions, selectedAnswers]);
 
   return (
     <div>
@@ -215,7 +253,7 @@ export default function ProcureStudyPage() {
             <button
               className="icon-btn"
               onClick={openJsonModal}
-              title="문제 데이터 (JSON) 관리 / 150제 추가"
+              title="400제 문제 데이터 (JSON) 관리"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -259,7 +297,7 @@ export default function ProcureStudyPage() {
         <div className="category-bar">
           <button
             className={`cat-btn ${selectedCategoryId === 0 ? 'active' : ''}`}
-            onClick={() => { setSelectedCategoryId(0); setCurrentIndex(0); }}
+            onClick={() => { setIsRandom10Mode(false); setSelectedCategoryId(0); setCurrentIndex(0); }}
           >
             전체 과목 ({examData.questions.length})
           </button>
@@ -269,13 +307,74 @@ export default function ProcureStudyPage() {
               <button
                 key={cat.id}
                 className={`cat-btn ${selectedCategoryId === cat.id ? 'active' : ''}`}
-                onClick={() => { setSelectedCategoryId(cat.id); setCurrentIndex(0); }}
+                onClick={() => { setIsRandom10Mode(false); setSelectedCategoryId(cat.id); setCurrentIndex(0); }}
               >
                 {cat.name} ({count})
               </button>
             );
           })}
+
+          {/* Random 10 Button */}
+          <button
+            className={`cat-btn ${isRandom10Mode ? 'active' : ''}`}
+            style={{
+              background: isRandom10Mode ? 'var(--primary)' : 'rgba(139, 92, 246, 0.12)',
+              color: isRandom10Mode ? '#fff' : '#7c3aed',
+              borderColor: '#c4b5fd',
+              fontWeight: 700
+            }}
+            onClick={startRandom10Exam}
+          >
+            🎲 1~3권 랜덤 10제 시험
+          </button>
         </div>
+
+        {/* Random 10 Mode Banner */}
+        {isRandom10Mode && (
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '0.85rem 1.25rem',
+            background: 'rgba(139, 92, 246, 0.1)',
+            border: '1px solid #c4b5fd',
+            borderRadius: 'var(--radius-md)',
+            color: 'var(--text-main)',
+          }}>
+            <div>
+              <strong>🎲 1~3권 랜덤 10제 미니 모의시험 진행 중</strong> (총 300문제 중 10문제 무작위 추출)
+            </div>
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <button
+                style={{
+                  padding: '0.35rem 0.75rem',
+                  fontSize: '0.8rem',
+                  fontWeight: 700,
+                  borderRadius: 'var(--radius-sm)',
+                  background: '#7c3aed',
+                  color: '#fff',
+                }}
+                onClick={startRandom10Exam}
+              >
+                🔄 새 10문제 뽑기
+              </button>
+              <button
+                style={{
+                  padding: '0.35rem 0.65rem',
+                  fontSize: '0.8rem',
+                  fontWeight: 600,
+                  borderRadius: 'var(--radius-sm)',
+                  border: '1px solid var(--border-subtle)',
+                  background: 'var(--bg-card)',
+                  color: 'var(--text-muted)',
+                }}
+                onClick={exitRandom10Mode}
+              >
+                전체 목록으로 나가기
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Status Bar */}
         <div className="status-bar">
@@ -289,7 +388,7 @@ export default function ProcureStudyPage() {
               >
                 {filteredQuestions.map((q, idx) => (
                   <option key={q.id} value={idx}>
-                    문항 {q.id} {selectedAnswers[q.id] !== undefined ? '(풀이완료)' : ''}
+                    {isRandom10Mode ? `[${idx + 1}번] ` : ''}문항 {q.id} {selectedAnswers[q.id] !== undefined ? '(풀이완료)' : ''}
                   </option>
                 ))}
               </select>
@@ -328,7 +427,9 @@ export default function ProcureStudyPage() {
           <div className="study-card">
             <div className="card-top">
               <div className="q-badge">
-                <span className="badge-num">문항 {currentQ.id}</span>
+                <span className="badge-num">
+                  {isRandom10Mode ? `[${currentIndex + 1}/10] ` : ''}문항 {currentQ.id}
+                </span>
                 <span className="badge-cat">
                   {categoryMap.get(currentQ.category_id) || `과목 ${currentQ.category_id}`}
                 </span>
@@ -416,6 +517,38 @@ export default function ProcureStudyPage() {
               </div>
             )}
 
+            {/* Random 10 Completed Summary */}
+            {randomScoreInfo && randomScoreInfo.isFinished && (
+              <div style={{
+                textAlign: 'center',
+                padding: '1.5rem',
+                borderRadius: 'var(--radius-md)',
+                background: 'var(--bg-subtle)',
+                border: '1px solid var(--border-subtle)',
+                marginTop: '1rem',
+              }}>
+                <div style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '0.5rem' }}>
+                  🎉 10문항 풀이 완료!
+                </div>
+                <div style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--primary)' }}>
+                  {randomScoreInfo.score}점{' '}
+                  <span style={{ fontSize: '1.1rem', color: 'var(--text-muted)', fontWeight: 600 }}>
+                    / 100점 ({randomScoreInfo.correctCount}개 정답)
+                  </span>
+                </div>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '0.5rem' }}>
+                  {randomScoreInfo.score >= 60 ? '축하합니다! 합격권 점수입니다.' : '조금만 더 복습해 보세요!'}
+                </p>
+                <button
+                  className="nav-action-btn primary"
+                  style={{ margin: '0.75rem auto 0 auto' }}
+                  onClick={startRandom10Exam}
+                >
+                  🔄 새로운 10문제 다시 뽑기
+                </button>
+              </div>
+            )}
+
             {/* Footer Navigation */}
             <div className="card-footer">
               <button
@@ -455,7 +588,7 @@ export default function ProcureStudyPage() {
             <button
               className="nav-action-btn primary"
               style={{ margin: '0 auto' }}
-              onClick={() => { setSelectedCategoryId(0); setFilterType('all'); }}
+              onClick={() => { setIsRandom10Mode(false); setSelectedCategoryId(0); setFilterType('all'); }}
             >
               전체 문제 보기
             </button>
@@ -471,7 +604,7 @@ export default function ProcureStudyPage() {
               <div>
                 <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>문제 데이터 (JSON) 관리</h2>
                 <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                  전체 150문제 JSON을 붙여넣어 즉시 업데이트할 수 있습니다.
+                  전체 400문제 JSON 데이터를 열람하거나 직접 수정하여 저장할 수 있습니다.
                 </p>
               </div>
               <button onClick={() => setShowJsonModal(false)} style={{ fontSize: '1.25rem', color: 'var(--text-muted)' }}>
@@ -504,7 +637,7 @@ export default function ProcureStudyPage() {
 
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.5rem' }}>
               <button className="nav-action-btn" onClick={handleResetJson} style={{ color: 'var(--danger)' }}>
-                기본 데이터로 복원
+                기본 400제로 복원
               </button>
               <div style={{ display: 'flex', gap: '0.5rem' }}>
                 <button className="nav-action-btn" onClick={() => setShowJsonModal(false)}>
